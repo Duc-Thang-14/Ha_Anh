@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thông tin Sinh viên</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+<h2>Danh sách Sinh viên</h2>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Tên</th>
+        <th>Ngày Sinh</th>
+        <th>Giới Tính</th>
+        <th>Địa Chỉ</th>
+        <th>Số Điện Thoại</th>
+        <th>Email</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Lặp qua danh sách sinh viên và hiển thị thông tin -->
+    <th:block th:each="student : ${students}">
+        <tr>
+            <td th:text="${student.studentId}"></td>
+            <td th:text="${student.name}"></td>
+            <td th:text="${student.birthday}"></td>
+            <td th:text="${student.gender}"></td>
+            <td th:text="${student.address}"></td>
+            <td th:text="${student.phone}"></td>
+            <td th:text="${student.email}"></td>
+        </tr>
+    </th:block>
+    </tbody>
+</table>
+</body>
+</html>

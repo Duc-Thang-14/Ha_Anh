@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thời khóa biểu</title>
+  <style>
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      text-align: left;
+      padding: 8px;
+    }
+    th {
+      background-color: #004080;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+<h2>Thời khóa biểu</h2>
+<table>
+  <thead>
+  <tr>
+    <th>Mã môn học</th>
+    <th>Tên môn học</th>
+    <th>Ngày học</th>
+    <th>Giờ học</th>
+    <th>Giảng viên</th>
+    <th>Vị trí</th>
+  </tr>
+  </thead>
+  <tbody>
+  <!-- Lặp qua danh sách thời khóa biểu -->
+  <tr th:each="schedule : ${schedules}">
+    <td th:text="${schedule.subject.id}"></td>
+    <td th:text="${schedule.subject.name}"></td>
+    <td th:text="${schedule.day}"></td>
+    <td th:text="${schedule.time}"></td>
+    <td th:text="${schedule.lecturer}"></td>
+    <td th:text="${schedule.location}"></td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>

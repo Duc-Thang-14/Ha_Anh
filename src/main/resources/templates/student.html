@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trang chủ Sinh viên</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      background-color: #f9f9f9;
+    }
+
+    header {
+      background-color: #003366;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      font-size: 28px;
+      font-weight: bold;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .container {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    nav {
+      width: 250px;
+      background-color: #004080;
+      padding: 20px;
+      color: white;
+      box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    }
+
+    nav ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    nav ul li {
+      margin: 15px 0;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: white;
+      font-size: 18px;
+      padding: 10px 15px;
+      display: block;
+      border-radius: 4px;
+      transition: background-color 0.3s ease;
+    }
+
+    nav ul li a:hover {
+      background-color: #0059b3;
+    }
+
+    .content {
+      flex: 1;
+      padding: 30px;
+      background-color: #fff;
+      overflow-y: auto;
+      box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .content h2 {
+      color: #003366;
+      font-size: 26px;
+      margin-bottom: 20px;
+    }
+
+    .content p {
+      font-size: 18px;
+      line-height: 1.6;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+<header>
+  Trang chủ trường Đại học Công Nghiệp Hà Nội
+</header>
+<div class="container">
+  <nav>
+    <ul>
+<!--      <li><a href="/student/view-info">Xem thông tin sinh viên</a></li>-->
+<!--      <li><a href="/student/view-scores">Xem điểm thi</a></li>-->
+<!--      <li><a href="/student/view-schedule">Xem thời khóa biểu</a></li>-->
+      <li><a th:href="@{/student/manage-scores}">Quản lý điểm</a></li>
+    </ul>
+  </nav>
+  <div class="content">
+    <h2>Chào mừng bạn đến với trang Sinh viên!</h2>
+    <p>Chọn một chức năng từ menu bên trái để bắt đầu.</p>
+  </div>
+</div>
+</body>
+</html>

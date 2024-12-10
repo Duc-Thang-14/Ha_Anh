@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trang chủ người quản trị</title>
+  <style>
+    /* Reset cơ bản */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      min-height: 100vh;
+      flex-direction: column;
+    }
+
+    /* Header */
+    .header {
+      width: 100%;
+      background-color: #4CAF50;
+      color: white;
+      text-align: center;
+      padding: 15px 0;
+      position: fixed;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .header h1 {
+      font-size: 24px;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      margin-top: 80px; /* Để tránh header */
+      width: 250px;
+      background-color: #f4f4f4;
+      position: fixed;
+      height: 100%;
+      overflow-y: auto;
+      border-right: 1px solid #ddd;
+      padding-top: 20px;
+    }
+
+    .sidebar a {
+      display: block;
+      color: #333;
+      padding: 15px 20px;
+      text-decoration: none;
+      font-size: 16px;
+      border-bottom: 1px solid #ddd;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .sidebar a:hover {
+      background-color: #ddd;
+      color: #000;
+    }
+
+    /* Content */
+    .content {
+      margin-left: 250px; /* Để không đè lên sidebar */
+      padding: 20px;
+      margin-top: 100px; /* Để tránh header */
+    }
+
+    .content h2 {
+      font-size: 22px;
+      margin-bottom: 15px;
+    }
+
+    .content p {
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .sidebar {
+        width: 200px;
+      }
+
+      .content {
+        margin-left: 200px;
+      }
+
+      .sidebar a {
+        font-size: 14px;
+        padding: 10px 15px;
+      }
+
+      .header h1 {
+        font-size: 20px;
+      }
+
+      .content h2 {
+        font-size: 18px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .sidebar {
+        position: static;
+        width: 100%;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid #ddd;
+      }
+
+      .content {
+        margin-left: 0;
+        margin-top: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+  <h1>Trang chủ người quản trị</h1>
+</div>
+
+<!-- Sidebar -->
+<div class="sidebar">
+  <a th:href="@{/admin/manage-students}">Quản lý thông tin sinh viên</a>
+  <a th:href="@{/admin/manage-schedule}">Quản lý thời khóa biểu</a>
+  <a th:href="@{/admin/manage-subjects}">Quản lý môn học</a>
+</div>
+
+<!-- Content -->
+<div class="content">
+  <h2>Chào mừng đến với trang quản trị</h2>
+  <p>Chọn một chức năng từ menu bên trái để thực hiện quản lý.</p>
+</div>
+
+</body>
+</html>

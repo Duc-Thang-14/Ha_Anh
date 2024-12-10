@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Điểm Thi Sinh Viên</title>
+  <style>
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    table, th, td {
+      border: 1px solid black;
+    }
+    th, td {
+      padding: 10px;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+<h2>Danh sách Điểm Thi</h2>
+<table>
+  <thead>
+  <tr>
+    <th>Mã Sinh Viên</th>
+    <th>Tên Sinh Viên</th>
+    <th>Tên Môn</th>
+    <th>Điểm Thi</th>
+  </tr>
+  </thead>
+  <tbody>
+  <!-- Lặp qua danh sách điểm thi -->
+  <th:block th:each="score : ${scores}">
+    <tr>
+      <td th:text="${score.student.studentId}"></td>
+      <td th:text="${score.student.name}"></td>
+      <td th:text="${score.subject.name}"></td>
+      <td th:text="${score.score}"></td>
+    </tr>
+  </th:block>
+  </tbody>
+</table>
+</body>
+</html>
