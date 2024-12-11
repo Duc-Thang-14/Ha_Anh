@@ -25,5 +25,8 @@ public class StudentService {
         studentRepository.deleteById(studentId); // Xóa sinh viên theo ID
     }
 
+    public Student getStudentById(String studentID) {
+        return studentRepository.findById(studentID).orElse(null); // Lấy sinh viên từ cơ sở dữ liệu
+    }
 
 }

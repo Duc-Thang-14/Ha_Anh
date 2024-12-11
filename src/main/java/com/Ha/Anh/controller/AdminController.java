@@ -21,13 +21,6 @@ public class AdminController {
         return "admin"; // Trang chính dành cho Admin
     }
 
-//    @GetMapping("/manage-students")
-//    public String manageStudents(Model model) {
-//        List<Student> students = studentService.getAllStudents(); // Lấy danh sách sinh viên từ service
-//        model.addAttribute("students", students); // Thêm danh sách vào mô hình
-//        return "manage_students"; // Trả về trang quản lý sinh viên
-//    }
-
     @GetMapping("/manage-schedule")
     public String manageSchedule() {
         return "manage_schedule"; // Quản lý thời khóa biểu
@@ -47,7 +40,6 @@ public class AdminController {
     }
 
 
-
     // Thêm Sinh viên
     @PostMapping("/add-student")
     public String addStudent(@ModelAttribute Student student, Model model) {
@@ -61,14 +53,6 @@ public class AdminController {
     }
 
 
-    // Sửa Sinh viên
-    @PostMapping("/edit-student")
-    public String editStudent(@ModelAttribute Student student, Model model) {
-        studentService.saveStudent(student); // Cập nhật sinh viên
-        model.addAttribute("message", "Sửa sinh viên thành công!");
-        return "redirect:/admin/manage-students"; // Quay lại trang quản lý sinh viên
-    }
-
     // Xóa Sinh viên
     @GetMapping("/delete-student/{id}")
     public String deleteStudent(@PathVariable String id, Model model) {
@@ -77,7 +61,32 @@ public class AdminController {
         return "redirect:/admin/manage-students"; // Quay lại trang quản lý sinh viên
     }
 
+    @PostMapping("/edit-student")
+    public String editStudent(@ModelAttribute Student student, Model model) {
+        studentService.saveStudent(student); // Lưu cập nhật
+        return "redirect:/admin/manage-students"; // Cập nhật danh sách
+    }
 
+    // Hiển thị form để sửa thông tin sinh viên
+    @GetMapping("/edit-student/{id}")
+    public String showEditForm(@PathVariable String id, Model model) {
+        Student student = studentService.getStudentById(id);
+        if (student != null) {
+            model.addAttribute("student", student); // Thêm đối tượng student vào model
+            return "edit_student";  // Trả về trang edit_student.html
+        } else {
+            model.addAttribute("message", "Sinh viên không tồn tại!");
+            return "redirect:/admin/manage-students"; // Nếu không tìm thấy sinh viên, quay lại trang quản lý sinh viên
+        }
+    }
+
+    // Cập nhật thông tin sinh viên
+    @PostMapping("/update-student")
+    public String updateStudent(@ModelAttribute Student student, Model model) {
+        studentService.saveStudent(student);  // Lưu lại thông tin sinh viên đã chỉnh sửa
+        model.addAttribute("message", "Cập nhật sinh viên thành công!");
+        return "redirect:/admin/manage-students";  // Quay lại trang quản lý sinh viên
+    }
 
 
 }
