@@ -19,8 +19,7 @@ public class Subject {
     private Integer credits;
 
     @Column(name = "ReleaseDate", nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Date releaseDate;
+    private String releaseDate;
 
     @Column(name = "Lecturer", nullable = false)
     private String lecturer;
@@ -62,11 +61,11 @@ public class Subject {
         this.credits = credits;
     }
 
-    public Date getReleaseDate() {
+    public String getReleaseDate() {
         return releaseDate;
     }
 
-    public void setReleaseDate(Date releaseDate) {
+    public void setReleaseDate(String releaseDate) {
         this.releaseDate = releaseDate;
     }
 

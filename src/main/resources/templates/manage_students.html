@@ -122,9 +122,7 @@
 
     </table>
 
-    <div class="text-center my-4">
-      <a href="/admin" class="btn btn-primary">Quay về Trang Chủ</a>
-    </div>
+
   </div>
 </div>
 
@@ -250,6 +248,13 @@
   </div>
 </div>
 
+<!-- Nút quay lại trang chủ -->
+<div class="position-fixed top-0 start-0 m-3">
+  <a href="/admin" class="btn btn-secondary">
+    <i class="bi bi-house-door"></i> Trang chủ
+  </a>
+</div>
+
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     var deleteButtons = document.querySelectorAll('[data-bs-toggle="modal"][data-bs-target="#confirmDeleteModal"]');
@@ -286,7 +291,6 @@
     });
   });
 </script>
-
 
 </body>
 </html>

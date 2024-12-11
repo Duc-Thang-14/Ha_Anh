@@ -1,17 +1,188 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quản lý môn học</title>
+    <title>Manage Subjects</title>
+    <!-- Thư viện Bootstrap -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.5.0/font/bootstrap-icons.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-<header>
+<div class="container mt-5">
     <h1>Quản lý môn học</h1>
-</header>
-<section>
-    <h2>Danh sách môn học</h2>
-    <!-- Form hoặc bảng quản lý môn học -->
-</section>
+    <!-- Tiêu đề -->
+    <h1 class="page-title text-center">Danh sách môn học</h1>
+
+    <!-- Thông báo thành công hoặc thất bại -->
+    <div th:if="${message}" class="alert alert-success" role="alert">
+        <span th:text="${message}"></span>
+    </div>
+    <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addSubjectModal">Add Subject</button>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Credits</th>
+            <th>Release Date</th>
+            <th>Lecturer</th>
+            <th>Training Unit</th>
+            <th>English Name</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="subject : ${subjects}">
+            <td th:text="${subject.subjectID}"></td>
+            <td th:text="${subject.subjectName}"></td>
+            <td th:text="${subject.credits}"></td>
+            <td th:text="${subject.releaseDate}"></td>
+            <td th:text="${subject.lecturer}"></td>
+            <td th:text="${subject.trainingUnit}"></td>
+            <td th:text="${subject.englishName}"></td>
+            <td>
+                <!-- Chỉnh sửa nút Edit để truyền đúng dữ liệu vào modal -->
+                <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editSubjectModal"
+                        th:attr="data-subject-id=${subject.subjectID}, data-subject-name=${subject.subjectName}, data-credits=${subject.credits}, data-release-date=${subject.releaseDate}, data-lecturer=${subject.lecturer}, data-training-unit=${subject.trainingUnit}, data-english-name=${subject.englishName}"
+                        onclick="editSubject(this)">Edit</button>
+
+                <a th:href="@{'/admin/delete-subject/{id}'(id=${subject.subjectID})}" class="btn btn-danger" onclick="confirmDelete(this.href); return false;">Delete</a>
+
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- Modal Add Subject -->
+<div class="modal fade" id="addSubjectModal" tabindex="-1" aria-labelledby="addSubjectModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addSubjectModalLabel">Thêm Môn học</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="/admin/add-subject" method="POST">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="subjectID" class="form-label">Mã môn học</label>
+                        <input type="text" class="form-control" id="subjectID" name="subjectID" required placeholder="Nhập mã môn học">
+                    </div>
+                    <div class="mb-3">
+                        <label for="subjectName" class="form-label">Tên môn học</label>
+                        <input type="text" class="form-control" id="subjectName" name="subjectName" required placeholder="Nhập tên môn học">
+                    </div>
+                    <div class="mb-3">
+                        <label for="credits" class="form-label">Số tín chỉ</label>
+                        <input type="number" class="form-control" id="credits" name="credits" required placeholder="Nhập số tín chỉ">
+                    </div>
+                    <div class="mb-3">
+                        <label for="releaseDate" class="form-label">Ngày phát hành</label>
+                        <input type="date" class="form-control" id="releaseDate" name="releaseDate" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="lecturer" class="form-label">Giảng viên</label>
+                        <input type="text" class="form-control" id="lecturer" name="lecturer" required placeholder="Nhập tên giảng viên">
+                    </div>
+                    <div class="mb-3">
+                        <label for="trainingUnit" class="form-label">Đơn vị đào tạo</label>
+                        <input type="text" class="form-control" id="trainingUnit" name="trainingUnit" required placeholder="Nhập đơn vị đào tạo">
+                    </div>
+                    <div class="mb-3">
+                        <label for="englishName" class="form-label">Tên môn học tiếng Anh</label>
+                        <input type="text" class="form-control" id="englishName" name="englishName" required placeholder="Nhập tên môn học tiếng Anh">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <button type="submit" class="btn btn-primary">Lưu</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Edit Subject -->
+<div class="modal fade" id="editSubjectModal" tabindex="-1" aria-labelledby="editSubjectModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editSubjectModalLabel">Sửa Môn học</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="/admin/edit-subject" method="POST">
+                <input type="hidden" id="editSubjectID" name="subjectID">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="editSubjectName" class="form-label">Tên môn học</label>
+                        <input type="text" class="form-control" id="editSubjectName" name="subjectName" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editCredits" class="form-label">Số tín chỉ</label>
+                        <input type="number" class="form-control" id="editCredits" name="credits" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editReleaseDate" class="form-label">Ngày phát hành</label>
+                        <input type="date" class="form-control" id="editReleaseDate" name="releaseDate" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editLecturer" class="form-label">Giảng viên</label>
+                        <input type="text" class="form-control" id="editLecturer" name="lecturer" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editTrainingUnit" class="form-label">Đơn vị đào tạo</label>
+                        <input type="text" class="form-control" id="editTrainingUnit" name="trainingUnit" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editEnglishName" class="form-label">Tên môn học tiếng Anh</label>
+                        <input type="text" class="form-control" id="editEnglishName" name="englishName" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <button type="submit" class="btn btn-primary">Cập nhật</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Nút quay lại trang chủ -->
+<div class="position-fixed top-0 start-0 m-3">
+    <a href="/admin" class="btn btn-secondary">
+        <i class="bi bi-house-door"></i> Trang chủ
+    </a>
+</div>
+
+<script>
+    function editSubject(button) {
+        var subjectID = button.getAttribute('data-subject-id');
+        var subjectName = button.getAttribute('data-subject-name');
+        var credits = button.getAttribute('data-credits');
+        var releaseDate = button.getAttribute('data-release-date');
+        var lecturer = button.getAttribute('data-lecturer');
+        var trainingUnit = button.getAttribute('data-training-unit');
+        var englishName = button.getAttribute('data-english-name');
+
+        document.getElementById('editSubjectID').value = subjectID;
+        document.getElementById('editSubjectName').value = subjectName;
+        document.getElementById('editCredits').value = credits;
+        document.getElementById('editReleaseDate').value = releaseDate;
+        document.getElementById('editLecturer').value = lecturer;
+        document.getElementById('editTrainingUnit').value = trainingUnit;
+        document.getElementById('editEnglishName').value = englishName;
+    }
+</script>
+
+<script>
+    function confirmDelete(url) {
+        if (confirm("Bạn có chắc chắn muốn xóa môn học này?")) {
+            window.location.href = url;  // Chuyển hướng đến URL xóa nếu người dùng xác nhận
+        }
+    }
+</script>
+
 </body>
 </html>
+
+
