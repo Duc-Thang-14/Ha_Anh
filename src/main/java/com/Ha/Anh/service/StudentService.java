@@ -32,17 +32,7 @@ public class StudentService {
     public boolean isStudentIDExists(String studentID) {
         return studentRepository.existsById(studentID);
     }
-
-    // Phương thức cập nhật sinh viên
-//    public void updateStudent(Student student) {
-//        // Kiểm tra nếu sinh viên tồn tại trong cơ sở dữ liệu
-//        if (studentRepository.existsById(student.getStudentID())) {
-//            // Cập nhật sinh viên
-//            studentRepository.save(student);
-//        } else {
-//            throw new RuntimeException("Sinh viên không tồn tại");
-//        }
-//    }
+    
 
     public Student save(Student student) {
         // Lưu hoặc cập nhật sinh viên

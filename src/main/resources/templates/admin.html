@@ -13,10 +13,11 @@
     }
 
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Arial', sans-serif;
       display: flex;
       min-height: 100vh;
       flex-direction: column;
+      background-color: #f9f9f9;
     }
 
     /* Header */
@@ -25,59 +26,99 @@
       background-color: #4CAF50;
       color: white;
       text-align: center;
-      padding: 15px 0;
+      padding: 20px 0;
       position: fixed;
       top: 0;
       z-index: 1000;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
 
     .header h1 {
-      font-size: 24px;
+      font-size: 30px;
     }
 
     /* Sidebar */
     .sidebar {
-      margin-top: 80px; /* Để tránh header */
+      margin-top: 80px;
       width: 250px;
-      background-color: #f4f4f4;
+      background-color: #333;
       position: fixed;
       height: 100%;
       overflow-y: auto;
-      border-right: 1px solid #ddd;
       padding-top: 20px;
+      border-right: 1px solid #ddd;
     }
 
     .sidebar a {
       display: block;
-      color: #333;
+      color: white;
       padding: 15px 20px;
       text-decoration: none;
-      font-size: 16px;
-      border-bottom: 1px solid #ddd;
+      font-size: 18px;
+      border-bottom: 1px solid #444;
       transition: background-color 0.3s, color 0.3s;
     }
 
     .sidebar a:hover {
-      background-color: #ddd;
-      color: #000;
+      background-color: #575757;
+      color: #fff;
     }
 
     /* Content */
     .content {
-      margin-left: 250px; /* Để không đè lên sidebar */
-      padding: 20px;
-      margin-top: 100px; /* Để tránh header */
+      margin-left: 250px;
+      padding: 40px 20px;
+      margin-top: 100px;
     }
 
     .content h2 {
-      font-size: 22px;
-      margin-bottom: 15px;
+      font-size: 26px;
+      margin-bottom: 20px;
+      color: #333;
     }
 
     .content p {
-      font-size: 16px;
-      line-height: 1.5;
+      font-size: 18px;
+      line-height: 1.6;
+      color: #555;
+    }
+
+    /* Nút quay về trang đăng nhập */
+    .back-to-login {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      z-index: 1000;
+    }
+
+    .back-to-login a {
+      text-decoration: none;
+      color: white;
+      background-color: #007bff;
+      padding: 12px 24px;
+      border-radius: 5px;
+      font-size: 18px;
+      transition: background-color 0.3s;
+    }
+
+    .back-to-login a:hover {
+      background-color: #0056b3;
+    }
+
+    /* Chèn ảnh */
+    .banner {
+      width: 100%;
+      height: 450px;
+      background: url('/images/banner.jpg') no-repeat center center;
+      background-size: cover;
+      margin-bottom: 30px;
+    }
+
+    .banner h3 {
+      text-align: center;
+      color: white;
+      font-size: 36px;
+      padding-top: 100px;
     }
 
     /* Responsive */
@@ -91,16 +132,16 @@
       }
 
       .sidebar a {
-        font-size: 14px;
+        font-size: 16px;
         padding: 10px 15px;
       }
 
       .header h1 {
-        font-size: 20px;
+        font-size: 24px;
       }
 
       .content h2 {
-        font-size: 18px;
+        font-size: 20px;
       }
     }
 
@@ -117,6 +158,15 @@
         margin-left: 0;
         margin-top: 20px;
       }
+
+      .banner {
+        height: 200px;
+      }
+
+      .back-to-login a {
+        font-size: 16px;
+        padding: 10px 18px;
+      }
     }
   </style>
 </head>
@@ -129,15 +179,25 @@
 
 <!-- Sidebar -->
 <div class="sidebar">
-  <a th:href="@{/admin/manage-students}">Quản lý thông tin sinh viên</a>
-  <a th:href="@{/admin/manage-schedule}">Quản lý thời khóa biểu</a>
-  <a th:href="@{/admin/manage-subjects}">Quản lý môn học</a>
+  <a href="/admin/manage-students">Quản lý thông tin sinh viên</a>
+  <a href="/admin/manage-schedule">Quản lý thời khóa biểu</a>
+  <a href="/admin/manage-subjects">Quản lý môn học</a>
 </div>
 
 <!-- Content -->
 <div class="content">
-  <h2>Chào mừng đến với trang quản trị</h2>
-  <p>Chọn một chức năng từ menu bên trái để thực hiện quản lý.</p>
+  <!-- Banner Section -->
+  <div class="banner">
+    <h3></h3>
+  </div>
+
+  <h2>Trường Đại học Công nghiệp Hà Nội</h2>
+  <p>Trường Đại học Công nghiệp Hà Nội là trường đại học công lập trực thuộc Bộ Công Thương, có truyền thống đào tạo cán bộ khoa học kỹ thuật, cán bộ kinh tế, công nhân kỹ thuật lâu đời nhất Việt Nam (tiền thân là Trường Chuyên nghiệp Hà Nội thành lập năm 1898 và Trường Chuyên nghiệp Hải Phòng thành lập năm 1913) và là một cơ sở đào tạo định hướng ứng dụng nhiều ngành, nhiều loại hình, nhiều cấp trình độ.</p>
+</div>
+
+<!-- Nút quay về trang đăng nhập -->
+<div class="back-to-login">
+  <a href="/login">Đăng xuất</a>
 </div>
 
 </body>
